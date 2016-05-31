@@ -16,8 +16,8 @@ if (!require("httr")) {
 #******************************************
 # Initialize counters and auth variables
 #******************************************
-User="s.piya@gene2drug.com"
-Token="JhxaZWjl2v1pUWAuVpTbB4pUFa381EzMLBUybj0K"
+User="username"
+Token="token"
 i<-1; j<-1; k<-1; l<-1; m<-1; n<-1; a<-1; b<-1; c<-1
 
 #************************************************************************************

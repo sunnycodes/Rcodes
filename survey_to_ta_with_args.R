@@ -1,14 +1,13 @@
 #!/usr/bin/env Rscript
 
-########################################################################################
-#### Author: Sunny Piya                                                             ####
-#### Purpose: Import multple csv files containing survey (general recruitment data) ####
-#### and extract the demo data into a single csv file for final upload to TA        ####
-########################################################################################
+#--------------------------------------------------------------------------------------
+# Author  : Sunny Piya                                                             
+# Purpose : Import multple csv files containing survey (recruitment data) 
+#           and extract the demo data into a single csv file for final upload to DB        
+#--------------------------------------------------------------------------------------
 
-#take arguments from the command line.
 #first argument is the location of the R script
-#second argument is the location of the filer containing csv files (survey output)
+#second argument is the location of the folder containing survey output files
 args = commandArgs(trailingOnly = TRUE)
 first_input<-args[1]
 
@@ -701,6 +700,6 @@ dffinal<-sqldf('select
           where CompletionStatus="Complete" ')
 
 #output dataframe to a csv file
-write.csv(dffinal, file = "~/Desktop/final_output.csv", row.names=FALSE)
+write.csv(dffinal, file = "<outpuf file location>", row.names=FALSE)
 
 

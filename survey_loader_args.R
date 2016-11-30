@@ -1,7 +1,6 @@
 #!/usr/bin/env Rscript
 
 #--------------------------------------------------------------------------------------
-# Author  : Sunny Piya                                                             
 # Note    : Import multple csv files containing survey (recruitment data) 
 #           and extract the demo data into a single csv file for final upload to DB        
 #--------------------------------------------------------------------------------------

@@ -25,14 +25,14 @@ Token="token"
 #------------------------------------------------------------------------------------
 # Create a list of all blacklisted email domains
 # This step will need to connect MySQL DB on cPanel to get
-# the list present in social engine
+# the list present in SE DB
 #------------------------------------------------------------------------------------
 #blacklist<-c(=>select black_list from engine4_advmemmanagement_blackwhitelists;)
 black_list_raw<-read.csv(file='<input file location>', header=FALSE)
 blacklist<-as.vector(black_list_raw[,"V1"])
 
 #------------------------------------------------------------------------------------
-# Create empty lists/df to hold blacklisted emails and CID
+# Create empty lists/df to hold outed out emails and CID
 #------------------------------------------------------------------------------------
 json_list <- list()
 json_black_list_cid = c()
@@ -69,7 +69,7 @@ json_list[[i]] <- fromJSON(
 
 #------------------------------------------------------------------------------------
 # Check if there are more than 5000 accounts that
-# were modified within the specified period
+# were modified within the specified time period
 #------------------------------------------------------------------------------------
 if(length(json_list[[i]]$Result) == 5000) {
   while (length(json_list[[i]]$Result) == 5000) {
@@ -96,7 +96,7 @@ i <- i + 1
 }
 
 #------------------------------------------------------------------------------------
-# Parse all elements of the json_list to find Emails 
+# Parse all elements of the master list to find emails 
 # and CID and add to the master dataframe
 #------------------------------------------------------------------------------------
 for (a in 1:length(json_list)) {
@@ -127,7 +127,7 @@ for (k in 1:nrow(json_df)) {
 }
 
 #------------------------------------------------------------------------------------
-# Store new blacklisted emails in a csv file
+# Store new blacklisted emails in a CSV file
 #------------------------------------------------------------------------------------
 write.csv (json_black_list_emails, file=paste('<output file location>',Sys.Date(),'.csv'))
 
@@ -149,7 +149,7 @@ for (n in 1:length(json_black_list_cid)) {
         sep = ""
       )
     )
-   Sys.sleep(5)
+   Sys.sleep(2)
    print(paste('Opting out: ',json_black_list_cid[n],'...',json_black_list_emails[n]))
   n <- n + 1
  }

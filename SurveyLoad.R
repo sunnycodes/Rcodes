@@ -5,8 +5,8 @@
 #           the demo data into a single mastert file (CSV)        
 #--------------------------------------------------------------------------------------
 
-#first argument is the location of the R script
-#second argument is the location of the folder containing survey output files
+# First argument is the location of the R script
+# Second argument is the location of the folder containing survey output files
 args = commandArgs(trailingOnly = TRUE)
 first_input<-args[1]
 
@@ -23,21 +23,21 @@ if (!require("sqldf")) {
 #set working directory
 setwd(first_input)
  
-#function to remove the first row in each data frame within the master dataframe list
+# Function to remove the first row in each data frame within the master dataframe list
 remove_row1 <- function(df){
   df[-1,]
 }
 
-#final all matching files with .csv extension in the working directory
+# Final all matching files with .csv extension in the working directory
 file_list<-list.files(pattern="*.csv")
 
-#import all survey .csv files from the directory into R, remove first row, and assign all dataframe to a list
+# Import all survey .csv files from the directory into R, remove first row, and assign all dataframe to a list
 dflistnew <- list()
 for (i in 1:length(file_list)){
   dflistnew[[length(dflistnew)+1]] <- assign(file_list[i], remove_row1(read.csv(file_list[i])))
 }
 
-#select only useful fields from the raw .csv files 
+# Select only useful fields from the raw .csv files 
 dflisttrim <- list()
 for (j in 1:length(dflistnew)){
              dflisttrim[[j]] <- data.frame(dflistnew[[j]]$email
@@ -62,10 +62,10 @@ for (j in 1:length(dflistnew)){
                                                    stringsAsFactors = FALSE)
     }
 
-#bind all rows for trimmed dataframes to create a single dataframe
+# Bind all rows for trimmed dataframes to create a single dataframe
 dflisttrim_rbind<-do.call("rbind", dflisttrim)
          
-#Replace column names of the dataframe with new column names based on the Target Audience requirements
+# Replace column names of the dataframe with new column names based on the Target Audience requirements
 colnames(dflisttrim_rbind) <- c("Email"
                           ,"Continent"
                           ,"Segment"
@@ -86,8 +86,8 @@ colnames(dflisttrim_rbind) <- c("Email"
                           ,"Number of Beds"
                           ,"CompletionStatus")
 
-#Modify colums as desired for the final output data frame
-#only select records where the CompletionStatus = 'Complete'
+# Modify colums as desired for the final output data frame
+# Select records where the CompletionStatus is 'Complete'
 dffinal<-sqldf('select
                 "Email"
                ,"Continent"
@@ -108,7 +108,7 @@ dffinal<-sqldf('select
           from dflisttrim_rbind
           where CompletionStatus="Complete" ')
 
-#output dataframe to a csv file
+# Output dataframe to a csv file
 write.csv(dffinal, file = "<outpuf file location>", row.names=FALSE)
 
 

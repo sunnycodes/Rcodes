@@ -20,8 +20,7 @@ if (!require("httr")) {
 
 User="username"
 Token="token"
-
-i<-1; j<-1; k<-1; l<-1; m<-1; n<-1; a<-1; b<-1; c<-1
+#i<-1; j<-1; k<-1; l<-1; m<-1; n<-1; a<-1; b<-1; c<-1
 
 #------------------------------------------------------------------------------------
 # Create a list of all blacklisted email domains

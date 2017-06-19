@@ -1,4 +1,4 @@
-#install important libraries
+#install charting libraries
 library(ggolot2)
 
 #convert start and end date fields to Date datatype
